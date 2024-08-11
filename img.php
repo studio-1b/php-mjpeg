@@ -147,21 +147,21 @@ if (isset($_POST['cmd']) === true) {
         echo "Content-Length: " . strval($len) . "\r\n";
         echo "\r\n";
         echo $value;
+        sleep(1);
       }
     }
 
     $counter = 0;
     $prev = $start;
     while (connection_aborted() == 0) {
-      sleep(1);
       $next = $client->get($key);
       if($next != $prev) {
         $len = strlen($next);
         $value = $client->get($key . strval($next));
-        echo "--" . $boundary;
-        echo "Content-Type: image/jpeg";
-        echo "Content-Length: " . strval($len);
-        echo "";
+        echo "--" . $boundary . "\r\n";
+        echo "Content-Type: image/jpeg\r\n";
+        echo "Content-Length: " . strval($len) . "\r\n";
+        echo "\r\n";
         echo $value;
 
         $prev = $next;
@@ -174,6 +174,7 @@ if (isset($_POST['cmd']) === true) {
           //See elastic IP out... https://blog.economize.cloud/ec2-other-costs-explorer-pricing/
           exit();
       }
+      sleep(5);
     }
 
   } elseif ($_GET['cmd'] == 'set') {
