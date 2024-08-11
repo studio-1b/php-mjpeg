@@ -2,6 +2,8 @@
 PHP to create a MJPEG output
 
 ## Needs
+docker
+docker-compose
 3 containers for Redis Guestbook @ https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
 (this repo has a docker-compose.yaml that should work for docker)
 (or just a PHP container, and you have to install the redis or a way to store JPG files)
@@ -18,6 +20,30 @@ The MJPEG feed only lasts 3600 seconds.
 ## Additional values
 You don't need redis.  You can upload your own images and save it to session.  You can modify it anyway you want.  It is simple enough.
 MJPEG is a very very old technology.  I don't know how much longer, browsers will support it.  But it is free, and a lot of free software like Linux motion uses it.
+
+## Installation
+Copy this script
+```
+git clone https://github.com/studio-1b/php-mjpeg.git
+```
+
+Install the php and redis containers
+```
+docker-compose up
+```
+or to run them in background
+```
+docker-compose up -d
+```
+
+You need to copy the img.php
+```
+docker cp img.php <PHP container name>:/var/www/html
+```
+Probably will be:
+```
+docker cp img.php php-mjpeg-php-redis-1:/var/www/html
+```
 
 ## Usage: uploading JPG, for each frame
 You can upload JPG images with curl

@@ -1,0 +1,20 @@
+version: '3'
+services:
+  php-redis:
+    image: gcr.io/google_samples/gb-frontend:v5
+    depends_on:
+    - redis-leader
+    environment:
+      GET_HOSTS_FROM: dns
+    ports:
+    - 10000:80
+
+  redis-leader:
+    image: docker.io/redis:6.0.5
+    ports:
+    - 6379:6379
+
+  redis-follower:
+    image: gcr.io/google_samples/gb-redis-follower:v2
+    ports:
+    - 6380:6379
