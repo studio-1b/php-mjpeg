@@ -32,7 +32,7 @@ if (isset($_POST['cmd']) === true) {
     header('Content-Type: image/jpeg');
     $binary=base64_decode($_POST['value']);
     //https://security.stackexchange.com/questions/42825/web-applications-terminate-strings-on-null-byte
-    header("Content-Length: " . strval($binary));
+    header("Content-Length: " . strlen($binary));
     echo $binary;
 
   } elseif ($_POST['cmd'] == 'set') {
@@ -90,10 +90,10 @@ if (isset($_POST['cmd']) === true) {
       exit();
     }
     $value = $client->get($key . strval($prev));
-    header("Content-Length: " . strval($value));
+    header("Content-Length: " . strlen($value));
     echo $value;
     //$value = $client->get($key);
-    //header("Content-Length: " . strval($value));
+    //header("Content-Length: " . strlen($value));
     //echo $value;
   }
 } elseif (isset($_GET['cmd']) === true) {
@@ -234,7 +234,7 @@ if (isset($_POST['cmd']) === true) {
     }
 
     $value = $client->get($key . strval($prev));
-    header("Content-Length: " . strval($value));
+    header("Content-Length: " . strlen($value));
     echo $value;
   }
 } else {
